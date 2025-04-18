@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 80%;
+
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 100%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 252 62% 75%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 222 47% 10%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 222 47% 12%;
+    --sidebar-ring: 224 76% 48%;
+  }
+
+  body {
+    background: #000;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-secondary/30 backdrop-blur-sm border border-white/10;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent;
+  }
+
+  .panel-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Code block styling */
+.prose pre {
+  background: #111 !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  padding: 1.25em !important;
+  font-size: 1.05em !important;
+  margin: 1.5em 0 !important;
+  overflow-x: auto !important;
+  box-shadow: 0 2px 16px 0 #000a;
+}
+
+.prose code {
+  background: #181818 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+  padding: 0.2em 0.4em !important;
+  font-size: 1em !important;
+}
+
+.prose pre code {
+  background: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+}
+
+.prose p code {
+  @apply bg-black/30 text-white px-1 py-0.5 rounded;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  @apply text-white mb-4 mt-6 font-semibold;
+}
+
+.prose h1 {
+  @apply text-2xl;
+}
+
+.prose h2 {
+  @apply text-xl;
+}
+
+.prose h3 {
+  @apply text-lg;
+}
+
+.prose p {
+  @apply my-3;
+}
+
+.prose ul, .prose ol {
+  @apply my-4 pl-8;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose li {
+  @apply my-1;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary/50 pl-4 italic my-4;
+}
+
+.prose a {
+  @apply text-primary underline;
+}
+
+.prose-purple {
+  @apply prose max-w-none text-white;
+}
+
+.markdown table {
+  @apply border-collapse w-full my-4;
+}
+
+.markdown thead {
+  @apply bg-secondary/70;
+}
+
+.markdown th {
+  @apply text-left p-2 border border-secondary;
+}
+
+.markdown td {
+  @apply p-2 border border-secondary;
+}
+
+/* Animation for panel transition */
+.slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
