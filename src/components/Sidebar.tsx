@@ -145,21 +145,22 @@ const Sidebar = ({ isOpen, onOpenSettings, className }: SidebarProps & { onOpenS
               {apiProvider === 'puter.js' ? (
                 <div>
                   <div
-                    className={`fixed inset-0 z-[10000] flex items-center justify-center bg-black/90 transition-all duration-300 ${modelDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+                    className={`fixed top-0 left-64 z-[10000] flex items-start justify-center bg-black/95 transition-all duration-300 ${modelDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+                    style={{ width: 'calc(100vw - 16rem)', height: '100vh', backdropFilter: 'blur(2px)' }}
                     onClick={() => setModelDropdownOpen(false)}
                   >
-                    <div className="bg-[#18181a] rounded-2xl p-8 max-h-[90vh] w-[95vw] overflow-y-auto shadow-2xl border border-white/10 relative flex flex-col gap-6" onClick={e => e.stopPropagation()}>
-                      <button className="absolute top-4 right-4 text-white text-3xl hover:text-primary transition-colors" onClick={() => setModelDropdownOpen(false)}>&times;</button>
-                      <h2 className="text-3xl font-bold mb-4 text-white text-center tracking-tight">Select a Model</h2>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="bg-gradient-to-br from-[#18181a] via-[#18181a]/90 to-black rounded-3xl p-10 max-h-[92vh] w-full overflow-y-auto shadow-2xl border border-white/10 relative flex flex-col gap-8 animate-fade-in" onClick={e => e.stopPropagation()}>
+                      <button className="absolute top-6 right-8 text-white text-4xl hover:text-primary transition-colors focus:outline-none" onClick={() => setModelDropdownOpen(false)} aria-label="Close model selection">&times;</button>
+                      <h2 className="text-4xl font-extrabold mb-6 text-white text-center tracking-tight drop-shadow-lg">Select a Model</h2>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {puterModelCategories.map(cat => (
-                          <div key={cat.label} className="bg-black/60 rounded-xl p-4 border border-white/10 shadow-md flex flex-col gap-2">
-                            <h3 className="text-xl font-semibold mb-2 text-primary text-center uppercase tracking-wide">{cat.label}</h3>
+                          <div key={cat.label} className="bg-black/70 rounded-2xl p-6 border border-white/10 shadow-lg flex flex-col gap-3">
+                            <h3 className="text-2xl font-bold mb-3 text-primary text-center uppercase tracking-wider drop-shadow">{cat.label}</h3>
                             <div className="flex flex-col gap-1">
                               {[...new Set(cat.models)].map(m => (
                                 <button
                                   key={m}
-                                  className={`text-left px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors text-white font-mono text-sm ${model === m ? 'bg-primary/30 font-bold' : ''}`}
+                                  className={`text-left px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors text-white font-mono text-base tracking-tight ${model === m ? 'bg-primary/30 font-bold ring-2 ring-primary' : ''}`}
                                   onClick={() => { setModel(m); setModelDropdownOpen(false); }}
                                 >
                                   {m}
