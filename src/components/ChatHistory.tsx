@@ -3,7 +3,11 @@ import { useChat, Conversation } from "./providers/ChatProvider";
 import { cn } from "@/lib/utils";
 import { MessageSquare } from "lucide-react";
 
-const ChatHistory = () => {
+interface ChatHistoryProps {
+  showDelete?: boolean;
+}
+
+const ChatHistory: React.FC<ChatHistoryProps> = ({ showDelete = false }) => {
   const { history, startNewChat } = useChat();
 
   const conversations = React.useMemo(() => {
