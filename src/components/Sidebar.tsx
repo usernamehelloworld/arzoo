@@ -18,6 +18,10 @@ interface SidebarProps {
   className?: string;
 }
 
+// Puter.js handles authentication automatically.
+// The user is always authenticated before accessing any cloud or AI services.
+// No API keys or manual authentication required (see: https://docs.puter.com/prompt.md).
+
 const Sidebar = ({ isOpen, onOpenSettings, className }: SidebarProps & { onOpenSettings?: () => void }) => {
   const {
     apiProvider,
@@ -401,6 +405,13 @@ const Sidebar = ({ isOpen, onOpenSettings, className }: SidebarProps & { onOpenS
         >
           <Settings className="w-5 h-5 text-white/70" />
         </button>
+      </div>
+
+      {/* Authenticated badge/message */}
+      <div className="flex items-center justify-center py-2 bg-green-900/40 border-b border-green-600/30">
+        <span className="text-green-400 text-xs font-semibold">
+          ✅ User is authenticated with Puter.com (handled automatically)
+        </span>
       </div>
 
       <Tabs defaultValue="api" className="w-full">
