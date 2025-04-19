@@ -83,6 +83,9 @@ const ChatMessage = ({ message, curved, isStreaming, isThinking }: ChatMessagePr
           transitionProperty: 'background, box-shadow, border, color',
         }}
       >
+        {!isUser && message.model && (
+          <div className="text-xs text-primary/80 mb-1 font-mono select-text">Model: {message.model}</div>
+        )}
         {isThinking ? (
           <div className="flex items-center min-h-[28px]">
             <span className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse-light mr-1" />

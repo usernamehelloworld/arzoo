@@ -4,6 +4,7 @@ export type Message = {
   id: string;
   role: "user" | "assistant" | "system";
   content: string;
+  model?: string; // Track which model generated the message
 };
 
 export type ApiProvider = "puter.js" | "openrouter" | "google-ai-studio" | string;
@@ -152,6 +153,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       id: generateId(),
       role: "user",
       content,
+      model, // Track the model user selected
     };
     setMessages([...messages, userMessage]);
     setIsProcessing(true);
@@ -178,10 +180,16 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         await waitForPuter();
         // @ts-ignore
         const response = await window.puter.ai.chat(content, false, { model });
+        // If response contains model info, verify it matches
+        let responseModel = response.model || model;
+        if (response.model && response.model !== model) {
+          alert("Warning: Response is from a different model than selected!");
+        }
         const assistantMessage: Message = {
           id: generateId(),
           role: "assistant",
           content: response.message?.content || String(response),
+          model: responseModel,
         };
         setMessages((prev) => [...prev, assistantMessage]);
       } else {
@@ -190,6 +198,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
           id: generateId(),
           role: "assistant",
           content: `API provider '${apiProvider}' is not implemented for real requests.`,
+          model,
         };
         setMessages((prev) => [...prev, assistantMessage]);
       }
@@ -199,6 +208,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         id: generateId(),
         role: "assistant",
         content: error?.message || "An error occurred while sending the message.",
+        model,
       };
       setMessages((prev) => [...prev, assistantMessage]);
     } finally {
