@@ -180,10 +180,11 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         await waitForPuter();
         // @ts-ignore
         const response = await window.puter.ai.chat(content, false, { model });
-        // If response contains model info, verify it matches
+        // Debug: log the model sent and the model received
+        console.debug("Model sent:", model, "Model received:", response.model);
         let responseModel = response.model || model;
         if (response.model && response.model !== model) {
-          alert("Warning: Response is from a different model than selected!");
+          alert(`Warning: Response is from a different model than selected!\nSent: ${model}\nReceived: ${response.model}`);
         }
         const assistantMessage: Message = {
           id: generateId(),
