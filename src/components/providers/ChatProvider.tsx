@@ -155,7 +155,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       content,
       model, // Track the model user selected
     };
-    setMessages([...messages, userMessage]);
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     setIsProcessing(true);
 
     function waitForPuter(retries = 10, interval = 300): Promise<void> {
@@ -178,8 +179,11 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     try {
       if (apiProvider === "puter.js") {
         await waitForPuter();
+        // Prepare the full conversation history for the model
+        // Each message has a role ("user" or "assistant") and content
+        // The last message is the current prompt
         // @ts-ignore
-        const response = await window.puter.ai.chat(content, false, { model });
+        const response = await window.puter.ai.chat(updatedMessages.map(m => ({ role: m.role, content: m.content })), false, { model });
         // Debug: log the model sent and the model received
         console.debug("Model sent:", model, "Model received:", response.model);
         let responseModel = response.model || model;
